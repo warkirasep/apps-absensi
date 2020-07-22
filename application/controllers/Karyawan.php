@@ -8,12 +8,15 @@ class Karyawan extends CI_Controller
         parent::__construct();
         is_login();
         redirect_if_level_not('Manager');
-        $this->load->model('Karyawan_model', 'karyawan');
+        $this->load->model([
+            'Karyawan_model',
+            'Divisi_model'
+        ]);
     }
 
     public function index()
     {
-        $data['karyawan'] = $this->karyawan->get_all();
+        $data['karyawan'] = $this->Karyawan_model->get_all();
         return $this->template->load('template', 'karyawan/index', $data);
     }
 
@@ -37,7 +40,7 @@ class Karyawan extends CI_Controller
             'password' => password_hash($post['password'], PASSWORD_DEFAULT),
         ];
 
-        $result = $this->karyawan->insert_data($data);
+        $result = $this->Karyawan_model->insert_data($data);
         if ($result) {
             $response = [
                 'status' => 'success',
@@ -59,7 +62,8 @@ class Karyawan extends CI_Controller
     public function edit()
     {
         $id_user = $this->uri->segment(3);
-        $data['karyawan'] = $this->karyawan->find($id_user);
+        $data['karyawan'] = $this->Karyawan_model->find($id_user);
+        $data['divisi'] = $this->Divisi_model->get_all();
         return $this->template->load('template', 'karyawan/edit', $data);
     }
 
@@ -79,7 +83,7 @@ class Karyawan extends CI_Controller
             $data['password'] = password_hash($post['password'], PASSWORD_DEFAULT);
         }
 
-        $result = $this->karyawan->update_data($post['id_user'], $data);
+        $result = $this->Karyawan_model->update_data($post['id_user'], $data);
         if ($result) {
             $response = [
                 'status' => 'success',
@@ -99,7 +103,7 @@ class Karyawan extends CI_Controller
     public function destroy()
     {
         $id_user = $this->uri->segment(3);
-        $result = $this->karyawan->delete_data($id_user);
+        $result = $this->Karyawan_model->delete_data($id_user);
         if ($result) {
             $response = [
                 'status' => 'success',

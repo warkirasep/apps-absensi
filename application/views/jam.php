@@ -34,7 +34,6 @@
         </div>
     </div>
 </div>
-
 <div class="modal-wrapper">
     <div class="modal fade" id="edit-jam" tabindex="-1" role="dialog" aria-labelledby="edit-jam-label" aria-hidden="true">
         <div class="modal-dialog" role="document">
