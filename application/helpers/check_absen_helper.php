@@ -69,4 +69,25 @@ function is_weekend($tgl = false)
     return in_array(date('l', strtotime($tgl)), ['Saturday', 'Sunday']);
 }
 
+function cek_hadir($id_user, $tgl, $bulan, $tahun)
+{
+    $date = date('Y-m-d', strtotime($tgl.'-'.$bulan.'-'.$tahun));
+    $CI =& get_instance();
+    $CI->db->select("DATE_FORMAT(a.tgl, '%d-%m-%Y') AS tgl, a.waktu AS jam_masuk, (SELECT waktu FROM absensi al WHERE al.tgl = a.tgl AND id_user = '$id_user' AND al.keterangan != a.keterangan) AS jam_pulang");
+    $CI->db->where('id_user', $id_user);
+    $CI->db->where('tgl', $date);
+    $result = $CI->db->count_all_results('absensi');
+    if(is_weekend($tgl))
+    {
+        return 'L';
+    }else {
+        if($result > 0)
+        {
+            return 'H';
+        }else {
+            return 'i';
+        }
+    }
+}
+
 /* End of File: d:\Ampps\www\project\absen-pegawai\application\helpers\check_absen_helper.php */

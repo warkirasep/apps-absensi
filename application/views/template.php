@@ -76,6 +76,12 @@
                                 <p>Absensi</p>
                             </a>
                         </li>
+                        <li class="nav-item <?= @$_active ?>">
+                            <a class="nav-link" href="<?= base_url('absensi/report') ?>">
+                                <i class="nc-icon nc-notes"></i>
+                                <p>Laporan Absensi</p>
+                            </a>
+                        </li>
                     <?php else: ?>
                         <li class="nav-item <?= @$_active ?>">
                             <a class="nav-link" href="<?= base_url('absensi/check_absen') ?>">

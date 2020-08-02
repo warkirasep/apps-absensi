@@ -270,6 +270,23 @@ class Absensi extends CI_Controller
 
         return $data;
     }
+
+    public function report()
+    {
+        $id_user = @$this->uri->segment(3) ? $this->uri->segment(3) : $this->session->id_user;
+        $bulan = @$this->input->get('bulan') ? $this->input->get('bulan') : date('m');
+        $tahun = @$this->input->get('tahun') ? $this->input->get('tahun') : date('Y');
+        
+        $data['karyawan'] = $this->karyawan->get();
+        $data['absen'] = $this->absensi->get_absen($id_user, $bulan, $tahun);
+        $data['jam_kerja'] = (array) $this->jam->get_all();
+        $data['all_bulan'] = bulan();
+        $data['bulan'] = $bulan;
+        $data['tahun'] = $tahun;
+        $data['hari'] = hari_bulan($bulan, $tahun);
+        $data['tanggal'] = tanggal($bulan, $tahun);
+        return $this->template->load('template', 'report/absen', $data);
+    }
 }
 
 

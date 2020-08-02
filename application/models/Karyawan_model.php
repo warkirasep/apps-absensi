@@ -38,6 +38,13 @@ class Karyawan_model extends CI_Model
         $result = $this->db->delete('users');
         return $result;
     }
+
+    public function get()
+    {
+        $this->db->where('level', 'Karyawan');
+        $result = $this->db->get('users');
+        return $result->result();
+    }
 }
 
 

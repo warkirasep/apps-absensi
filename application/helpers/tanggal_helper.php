@@ -65,5 +65,19 @@ function hari_bulan($bulan, $tahun)
     return $hari_tgl;
 }
 
+function tanggal($bulan, $tahun)
+{
+    $kalender = CAL_GREGORIAN;
+    $jml_hari = cal_days_in_month($kalender, $bulan, $tahun);
+    $hari_tgl = [];
+
+    for ($i=1; $i <= $jml_hari; $i++) { 
+        $tgl = $i . '-' . $bulan . '-' . $tahun;
+        $hari_tgl[] = [
+            'tgl' => date('d', strtotime($tgl))
+        ];
+    }
+    return $hari_tgl;
+}
 
 /* End of File: d:\Ampps\www\project\absen-pegawai\application\helpers\Tanggal.php */
