@@ -83,9 +83,9 @@
                                     <td>Hadir</td>
                                 </tr>
                                 <tr>
-                                    <td>i</td>
+                                    <td>A</td>
                                     <td>:</td>
-                                    <td>Ijin</td>
+                                    <td>Alpa</td>
                                 </tr>
                                 <tr>
                                     <td>L</td>
