@@ -85,9 +85,10 @@ function cek_hadir($id_user, $tgl, $bulan, $tahun)
         {
             return 'H';
         }else {
-            return 'i';
+            return 'A';
         }
     }
 }
+
 
 /* End of File: d:\Ampps\www\project\absen-pegawai\application\helpers\check_absen_helper.php */

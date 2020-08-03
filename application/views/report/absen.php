@@ -38,7 +38,7 @@
                             <tr>
                                 <td>H = Hadir</td>
                                 <td>L = Libur</td>
-                                <td>i = Ijin</td>
+                                <td>A = Alpa</td>
                             </tr>
                         </table>
                     </div>
@@ -49,8 +49,7 @@
                                 Export Laporan
                             </button>
                             <div class="dropdown-menu" aria-labelledby="droprop-action">
-                                <a href="<?= base_url('absensi/export_pdf/' . $this->uri->segment(3) . "?bulan=$bulan&tahun=$tahun") ?>" class="dropdown-item" target="_blank"><i class="fa fa-file-pdf-o"></i> PDF</a>
-                                <a href="<?= base_url('absensi/export_excel/' . $this->uri->segment(3) . "?bulan=$bulan&tahun=$tahun") ?>" class="dropdown-item" target="_blank"><i class="fa fa-file-excel-o"></i> Excel</a>
+                                <a href="<?= base_url('absensi/report_pdf/' . $this->uri->segment(3) . "?bulan=$bulan&tahun=$tahun") ?>" class="dropdown-item" target="_blank"><i class="fa fa-file-pdf-o"></i> PDF</a>
                             </div>
                         </div>
                     </div>
@@ -78,15 +77,18 @@
                                     $libur = 0;
                                 ?>
                                 <?php foreach($hari as $i => $h): ?>
-                                    <td>
-                                        <?= 
-                                            $res = cek_hadir($row->id_user, $h['tgl'], $bulan, $tahun);
-                                            if($res == 'H')
-                                            {
-                                                $hadir++;
-                                            } 
-                                        ?>
-                                    </td>
+                                    <?php 
+                                        $res = cek_hadir($row->id_user, $h['tgl'], $bulan, $tahun);
+                                        if($res == 'H')
+                                        {
+                                            $hadir++;
+                                            echo '<td style="background: green;">H</td>';
+                                        }elseif($res == 'A'){
+                                            echo '<td style="background: red;">A</td>';
+                                        }else {
+                                            echo '<td style="background: white;">L</td>';
+                                        } 
+                                    ?>
                                 <?php endforeach; ?>
                                 <td><?php echo $hadir; ?></td>
                             </tr>

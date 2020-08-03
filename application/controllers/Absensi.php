@@ -57,16 +57,17 @@ class Absensi extends CI_Controller
             'keterangan' => $keterangan,
             'id_user' => $this->session->id_user
         ];
-        $result = $this->absensi->insert_data($data);
-        if ($result) {
+        $result = $this->absensi->find($keterangan, $data['tgl'], $this->session->id_user);
+        if(empty($result)){
+            $this->absensi->insert_data($data);
             $this->session->set_flashdata('response', [
                 'status' => 'success',
                 'message' => 'Absensi berhasil dicatat'
             ]);
-        } else {
+        }else {
             $this->session->set_flashdata('response', [
                 'status' => 'error',
-                'message' => 'Absensi gagal dicatat'
+                'message' => 'Anda sudah melakukan absensi'
             ]);
         }
         redirect('absensi/detail_absensi');
@@ -286,6 +287,32 @@ class Absensi extends CI_Controller
         $data['hari'] = hari_bulan($bulan, $tahun);
         $data['tanggal'] = tanggal($bulan, $tahun);
         return $this->template->load('template', 'report/absen', $data);
+    }
+
+    public function report_pdf()
+    {
+        $this->load->library('pdf');
+        $id_user = @$this->uri->segment(3) ? $this->uri->segment(3) : $this->session->id_user;
+        $bulan = @$this->input->get('bulan') ? $this->input->get('bulan') : date('m');
+        $tahun = @$this->input->get('tahun') ? $this->input->get('tahun') : date('Y');
+        
+        $data['karyawan'] = $this->karyawan->get();
+        $data['absen'] = $this->absensi->get_absen($id_user, $bulan, $tahun);
+        $data['jam_kerja'] = (array) $this->jam->get_all();
+        $data['all_bulan'] = bulan();
+        $data['bulan'] = $bulan;
+        $data['tahun'] = $tahun;
+        $data['hari'] = hari_bulan($bulan, $tahun);
+        $data['tanggal'] = tanggal($bulan, $tahun);
+
+        $html_content = $this->load->view('report/print_pdf', $data, true);
+
+        $filename = 'Absensi - ' . bulan($data['bulan']) . ' ' . $data['tahun'] . '.pdf';
+        
+        $this->pdf->setPaper('A4', 'landscape');
+        $this->pdf->loadHtml($html_content);
+        $this->pdf->render();
+        $this->pdf->stream($filename, ['Attachment' => 1]);
     }
 }
 

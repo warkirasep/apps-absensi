@@ -36,6 +36,15 @@ class Absensi_model extends CI_Model
         $data = $this->db->get('jam');
         return $data->row();
     }
+
+    public function find($keterangan, $tgl, $id_user)
+    {
+        $this->db->where('id_user', $id_user);
+        $this->db->where('tgl', $tgl);
+        $this->db->where('keterangan', $keterangan);
+        $data = $this->db->get('absensi');
+        return $data->row();
+    }
 }
 
 
