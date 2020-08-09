@@ -30,11 +30,8 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-6">
                             <div class="form-group">
-                                <label for="nik">ID : </label>
-                                <input type="hidden" name="id_user" value="<?= $this->uri->segment(3) ?>">
-                            </div>
-                            <div class="form-group">
                                 <label for="nik">NIk : </label>
+                                <input type="hidden" name="id_user" value="<?= $this->uri->segment(3) ?>">
                                 <input type="text" name="nik" id="nik" value="<?= $user->nik ?>" class="form-control" placeholder="Masukan NIK Karyawan"  required="required" />
                             </div>
                         </div>
@@ -58,7 +55,7 @@
                                 <input type="email" name="email" id="email" value="<?= $user->email ?>" class="form-control" placeholder="Masukan Email" required="reuqired" />
                             </div>
                         </div>
-                        <?php if($this->session->level == 'Karyawan'): ?>
+                        <?php if($this->session->level == 'admin'): ?>
                             <div class="col-xs-12 col-sm-12 col-md-4">
                                 <div class="form-group">
                                     <label for="divisi">Divisi : </label>

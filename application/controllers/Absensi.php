@@ -82,7 +82,7 @@ class Absensi extends CI_Controller
 
         $this->pdf->loadHtml($html_content);
         $this->pdf->render();
-        $this->pdf->stream($filename, ['Attachment' => 1]);
+        $this->pdf->stream($filename, ['Attachment' => 0]);
     }
 
     public function export_excel()
@@ -312,7 +312,7 @@ class Absensi extends CI_Controller
         $this->pdf->setPaper('A4', 'landscape');
         $this->pdf->loadHtml($html_content);
         $this->pdf->render();
-        $this->pdf->stream($filename, ['Attachment' => 1]);
+        $this->pdf->stream($filename, ['Attachment' => 0]);
     }
 }
 
