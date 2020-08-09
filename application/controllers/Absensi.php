@@ -183,9 +183,14 @@ class Absensi extends CI_Controller
         $excel->getActiveSheet()->getStyle('A1')->getFont()->setSize(12);
 
         $excel->setActiveSheetIndex(0)->setCellValue('A2', 'Divisi : ' . $data['karyawan']->nama_divisi);
-        $excel->getActiveSheet()->mergeCells('A2:D2');
+        $excel->getActiveSheet()->mergeCells('A2:B2');
         $excel->getActiveSheet()->getStyle('A2')->getFont()->setBold(true);
         $excel->getActiveSheet()->getStyle('A2')->getFont()->setSize(12);
+
+        $excel->setActiveSheetIndex(0)->setCellValue('C2', 'NIK : '.$data['karyawan']->nik);
+        $excel->getActiveSheet()->mergeCells('C2:D2');
+        $excel->getActiveSheet()->getStyle('C2')->getFont()->setBold(true);
+        $excel->getActiveSheet()->getStyle('C2')->getFont()->setSize(12);
 
         $excel->setActiveSheetIndex(0)->setCellValue('A3', '');
         $excel->getActiveSheet()->mergeCells('A3:D3');

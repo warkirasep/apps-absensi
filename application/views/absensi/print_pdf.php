@@ -27,6 +27,11 @@
                                         <th class="border-0 py-0">:</th>
                                         <th class="border-0 py-0"><?= $karyawan->nama_divisi ?></th>
                                     </tr>
+                                    <tr>
+                                        <th class="border-0 py-0">NIK</th>
+                                        <th class="border-0 py-0">:</th>
+                                        <th class="border-0 py-0"><?= $karyawan->nik ?></th>
+                                    </tr>
                                 </table>
                             </div>
                         </div>
